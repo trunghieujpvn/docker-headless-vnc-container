@@ -65,9 +65,6 @@ RUN apt-get update && apt-get install -y \
     install software-properties-common \
     nano \
     python3-pyqt5
- RUN add-apt-repository ppa:jonathonf/ffmpeg-3
- RUN apt update && sudo apt install ffmpeg libav-tools x264 x265
- 
 USER 1000
 
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
