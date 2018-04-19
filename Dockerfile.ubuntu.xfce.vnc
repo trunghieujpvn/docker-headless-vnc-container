@@ -57,7 +57,17 @@ ADD ./src/common/xfce/ $HOME/
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
-
+RUN apt-get update && apt-get install -y \
+    python-qt4 \
+    python-pyside \
+    python-pip \
+    python3-pip \
+    install software-properties-common \
+    nano \
+    python3-pyqt5
+ RUN add-apt-repository ppa:jonathonf/ffmpeg-3
+ RUN apt update && sudo apt install ffmpeg libav-tools x264 x265
+ 
 USER 1000
 
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
