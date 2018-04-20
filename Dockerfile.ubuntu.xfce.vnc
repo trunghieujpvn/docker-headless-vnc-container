@@ -57,14 +57,18 @@ ADD ./src/common/xfce/ $HOME/
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
-RUN apt-get update && apt-get install -y \
-    python-qt4 \
-    python-pyside \
-    python-pip \
-    python3-pip \
-    install software-properties-common \
-    nano \
-    python3-pyqt5
+RUN apt-get install -y python-pip python-dev build-essential
+RUN pip install --upgrade pip
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:jonathonf/ffmpeg-3
+RUN apt install -y ffmpeg libav-tools x264 x265
+RUN apt update
+RUN chmod -R a+rwx /headless/.cache/pip/http
+RUN chmod -R a+rwx /headless/.cache/pip
+RUN chmod -R a+rwx /headless/.cache
+RUN mkdir -m 777 /opt/source
+RUN mkdir -m 777 /opt/python_script
+RUN apt install -y nano
 USER 1000
 
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
