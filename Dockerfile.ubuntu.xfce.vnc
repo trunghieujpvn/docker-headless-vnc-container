@@ -74,6 +74,7 @@ RUN chmod -R a+rwx /headless/.cache
 RUN mkdir -m 777 /opt/source
 RUN mkdir -m 777 /opt/python_script
 RUN apt install -y nano
+ENV PATH="/headless/.local/bin/:${PATH}"
 USER 1000
 
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
