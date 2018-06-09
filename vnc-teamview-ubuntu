@@ -80,7 +80,14 @@ RUN apt-get update && \
 
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
-USER docker
+RUN apt-get update -yq && apt-get install -yq --no-install-recommends sudo ca-certificates procps adduser curl \
+    && echo "bruno     ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/bruno \
+    && adduser --disabled-password --gecos bruno bruno
+
+RUN apt-get install -yq --no-install-recommends curl
+RUN curl -fSL -o /tmp/teamviewer_linux.deb https://download.teamviewer.com/download/linux/teamviewer_amd64.deb && \
+    dpkg -i /tmp/teamviewer_linux.deb || apt-get install -yq --no-install-recommends -f
+
 USER docker
 
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
