@@ -3,6 +3,9 @@
 set -e
 
 ## print out help
+##Start MySQL
+/etc/init.d/mysql restart
+
 help (){
 echo "
 USAGE:
